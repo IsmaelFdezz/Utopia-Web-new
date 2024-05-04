@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1",
+        "name": "Boxy t-shirt #1",
+        "price": "19000",
+        "description": [
+            "100% algodón",
+            "Estampada en serigrafía",
+            "Boxy fit",
+            "Jersey 24/1 (200gsm)"
+        ],
+        "image": "white-shirt.jpg"
+    },
+    {
+        "id": "2",
+        "name": "Boxy Hoodie",
+        "price": "34000",
+        "description": [
+            "100% algodón",
+            "Bordado de alta calidad",
+            "Boxy fit",
+            "Frisa invisible (410gsm)"
+        ],
+        "image": "white-shirt.jpg"
+    }
+] 
