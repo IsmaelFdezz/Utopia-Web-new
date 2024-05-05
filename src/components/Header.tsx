@@ -36,18 +36,9 @@ function Header(props: HeaderProps) {
     <header className="bg-white fixed top-0 left-0 right-0 z-50 shadow-lg">
       <div className="header-bar bg-[#004080] text-white p-2 flex justify-center transition-opacity duration-500">
         <p
-          className={`text-sm ${
-            showEnviosGratis ? "opacity-100" : "opacity-0"
-          } ${showEnviosGratis ? "block" : "hidden"}`}
+          className={`text-sm}`}
         >
           ENVIOS GRATIS EN ROSARIO
-        </p>
-        <p
-          className={`text-sm ${
-            showEnviosGratis ? "opacity-0" : "opacity-100"
-          } ${showEnviosGratis ? "hidden" : "block"}`}
-        >
-          5% OFF TRANSFERENCIA
         </p>
       </div>
       <nav className="mx-auto flex flex-row items-center justify-between p-2">
