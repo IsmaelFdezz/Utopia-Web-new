@@ -1,12 +1,12 @@
 import React from 'react';
-import backgroundImage from '../assets/modelos-less-exposition.jpg'
+import backgroundImage from '../assets/IMG_0220.png'
 import Carousel from './Carousel';
 
 function HomePage() {
     return (
-        <div className="container mx-auto mt-[93px]">
+        <div className="container mt-[93px]">
             {/* Imagen de fondo */}
-            <div className='w-full h-[800px] bg-cover bg-center' style={{backgroundImage: `url(${backgroundImage})`}}></div>
+            <div className='w-screen h-[1200px] bg-cover bg-center' style={{backgroundImage: `url(${backgroundImage})`}}></div>
             <Carousel/>
         </div>
     );
