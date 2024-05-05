@@ -47,7 +47,7 @@ function Header(props: HeaderProps) {
             showEnviosGratis ? "opacity-0" : "opacity-100"
           } ${showEnviosGratis ? "hidden" : "block"}`}
         >
-          15% OFF TRANSFERENCIA
+          5% OFF TRANSFERENCIA
         </p>
       </div>
       <nav className="mx-auto flex flex-row items-center justify-between p-2">

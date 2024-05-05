@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import ProductPage, { ProductToAdd } from "./components/ProductPage";
 import Footer from "./components/Footer";
+import Checkout from "./components/Checkout";
+import Finish from "./components/Finish";
 
 export type Product = {
   id: string;
@@ -17,7 +19,7 @@ export type Product = {
 };
 
 function App() {
-  const [cartItems, setCartItems] =  useState<ProductToAdd[]>([]);
+  const [cartItems, setCartItems] = useState<ProductToAdd[]>([]);
 
   const addToCart = (productToAdd: ProductToAdd) => {
     setCartItems([...cartItems, productToAdd]);
@@ -34,13 +36,18 @@ function App() {
   return (
     <main className="flex flex-col height-screen justify-between h-screen">
       <Router>
-        <Header cartItems={cartItems} handleRemoveProduct={handleRemoveProduct}/>
+        <Header
+          cartItems={cartItems}
+          handleRemoveProduct={handleRemoveProduct}
+        />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route
             path="/products/:productId"
-            element={<ProductPage addToCart={addToCart}/>}
+            element={<ProductPage addToCart={addToCart} />}
           ></Route>
+          <Route path="/checkout" element={<Checkout/>}></Route>
+          <Route path="/checkout/finish" element={<Finish/>}></Route>
         </Routes>
         <Footer />
       </Router>
