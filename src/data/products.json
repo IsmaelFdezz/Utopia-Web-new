@@ -1,26 +1,41 @@
 [
     {
         "id": "1",
-        "name": "Boxy t-shirt #1",
-        "price": "19000",
+        "name": "Utopia 2000s Boxy t-shirt",
+        "price": 19000,
         "description": [
             "100% algodón",
             "Estampada en serigrafía",
             "Boxy fit",
             "Jersey 24/1 (200gsm)"
         ],
-        "image": "white-shirt.jpg"
+        "sizes": ["1", "2", "3"],
+        "image": "white-shirt"
     },
     {
         "id": "2",
-        "name": "Boxy Hoodie",
-        "price": "34000",
+        "name": "Utopia 2000s Crewneck (Grey)",
+        "price": 34000,
         "description": [
             "100% algodón",
             "Bordado de alta calidad",
             "Boxy fit",
             "Frisa invisible (410gsm)"
         ],
-        "image": "white-shirt.jpg"
+        "sizes": ["1", "2"],
+        "image": "grey-hoodie"
+    },
+    {
+        "id": "3",
+        "name": "Utopia 2000s Crewneck (White)",
+        "price": 34000,
+        "description": [
+            "100% algodón",
+            "Bordado de alta calidad",
+            "Boxy fit",
+            "Frisa invisible (410gsm)"
+        ],
+        "sizes": ["1", "2"],
+        "image": "grey-hoodie"
     }
 ] 

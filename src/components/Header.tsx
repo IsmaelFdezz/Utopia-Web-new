@@ -1,37 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/web-negra.png';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/web-negra.png";
 
-function Header() {
-    const [showEnviosGratis, setShowEnviosGratis] = useState(true);
+import ShoppingCart from "./ShoppingCart";
+import { ProductToAdd } from "./ProductPage";
 
-    useEffect(() => {
-        // Función para alternar entre los textos "ENVIOS GRATIS EN ROSARIO" y "15% OFF TRANSFERENCIA"
-        const interval = setInterval(() => {
-            setShowEnviosGratis(prevShowEnviosGratis => !prevShowEnviosGratis);
-        }, 3000);
+interface HeaderProps {
+  cartItems: ProductToAdd[];
+  handleRemoveProduct: (index: number) => void;
+}
 
-        return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
-    }, []);
+function Header(props: HeaderProps) {
+  const { cartItems, handleRemoveProduct } = props; 
 
-    return (
-        <header className="bg-white border-b-2 border-black fixed top-0 left-0 right-0 z-50">
-            <div className="header-bar bg-blue-500 text-white p-2 flex justify-center transition-opacity duration-500">
-                {/* Aplica una transición de opacidad para suavizar el cambio de texto */}
-                <p className={`text-sm ${showEnviosGratis ? 'opacity-100' : 'opacity-0'} ${showEnviosGratis ? 'block' : 'hidden'}`}>
-                    ENVIOS GRATIS EN ROSARIO
-                </p>
-                <p className={`text-sm ${showEnviosGratis ? 'opacity-0' : 'opacity-100'} ${showEnviosGratis ? 'hidden' : 'block'}`}>
-                    15% OFF TRANSFERENCIA
-                </p>
-            </div>
-            <nav className="mx-auto flex items-center justify-between p-2">
-                <Link to="/">
-                    <img src={logo} alt="Logo" className="h-10 mr-2" />
-                </Link>
-            </nav>
-        </header>
-    );
+  const [showEnviosGratis, setShowEnviosGratis] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowEnviosGratis((prevShowEnviosGratis) => !prevShowEnviosGratis);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCartIconClick = () => {
+    setIsCartOpen((prevIsCartOpen) => !prevIsCartOpen);
+  };
+
+  const handleCloseCart = () => {
+    setIsCartOpen(false);
+  };
+
+  return (
+    <header className="bg-white fixed top-0 left-0 right-0 z-50 shadow-lg">
+      <div className="header-bar bg-[#004080] text-white p-2 flex justify-center transition-opacity duration-500">
+        <p
+          className={`text-sm ${
+            showEnviosGratis ? "opacity-100" : "opacity-0"
+          } ${showEnviosGratis ? "block" : "hidden"}`}
+        >
+          ENVIOS GRATIS EN ROSARIO
+        </p>
+        <p
+          className={`text-sm ${
+            showEnviosGratis ? "opacity-0" : "opacity-100"
+          } ${showEnviosGratis ? "hidden" : "block"}`}
+        >
+          15% OFF TRANSFERENCIA
+        </p>
+      </div>
+      <nav className="mx-auto flex flex-row items-center justify-between p-2">
+        <Link to="/" className="ml-auto">
+          <img src={logo} alt="Logo" className="h-10" />
+        </Link>
+        <div
+          className="ml-auto mr-[16px] cursor-pointer"
+          onClick={handleCartIconClick}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px"
+            height="24px"
+            viewBox="0 0 1024 1024"
+            className="icon"
+          >
+            <path
+              fill="#000000"
+              d="M432 928a48 48 0 110-96 48 48 0 010 96zm320 0a48 48 0 110-96 48 48 0 010 96zM96 128a32 32 0 010-64h160a32 32 0 0131.36 25.728L320.64 256H928a32 32 0 0131.296 38.72l-96 448A32 32 0 01832 768H384a32 32 0 01-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"
+            />
+          </svg>
+        </div>
+        {isCartOpen && (
+          <ShoppingCart
+            handleRemoveProduct={handleRemoveProduct}
+            cartItems={cartItems}
+            onClose={handleCloseCart}
+          />
+        )}
+      </nav>
+    </header>
+  );
 }
 
 export default Header;
