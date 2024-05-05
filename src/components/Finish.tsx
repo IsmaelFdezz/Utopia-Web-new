@@ -4,7 +4,7 @@ function Finish() {
     
     return (
         <div className="flex flex-col mt-[94px] p-[32px]">
-            <p>Le enviaremos un correo electronico con los datos para terminar con el pago, muchas gracias.</p>
+            <p>Le enviaremos un correo electronico con los datos para finalizar con su compra, muchas gracias.</p>
         </div>
     );
 }
