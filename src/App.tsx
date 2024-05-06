@@ -8,7 +8,9 @@ import HomePage from "./components/HomePage";
 import ProductPage, { ProductToAdd } from "./components/ProductPage";
 import Footer from "./components/Footer";
 import Checkout from "./components/Checkout";
-import Finish from "./components/Finish";
+import Finish from "./components/Payment";
+import ShoppingCart from "./components/ShoppingCart";
+import OrderRecieved from "./components/OrderRecieved";
 
 export type Product = {
   id: string;
@@ -18,8 +20,13 @@ export type Product = {
   description: string[];
 };
 
+// Contextos
+export const DataContext = React.createContext(null);
+
 function App() {
-  const [cartItems, setCartItems] = useState<ProductToAdd[]>([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  const [userData, setUserData] = useState(null);
 
   const addToCart = (productToAdd: ProductToAdd) => {
     setCartItems([...cartItems, productToAdd]);
@@ -36,20 +43,20 @@ function App() {
   return (
     <main className="flex flex-col height-screen justify-between h-screen">
       <Router>
-        <Header
-          cartItems={cartItems}
-          handleRemoveProduct={handleRemoveProduct}
-        />
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route
-            path="/products/:productId"
-            element={<ProductPage addToCart={addToCart} />}
-          ></Route>
-          <Route path="/checkout" element={<Checkout/>}></Route>
-          <Route path="/checkout/finish" element={<Finish/>}></Route>
-        </Routes>
+        <DataContext.Provider value={{cartItems, userData, setUserData}}>
+          <Header handleRemoveProduct={handleRemoveProduct} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/products/:productId"
+              element={<ProductPage addToCart={addToCart} />}
+            />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/payment" element={<Finish />} />
+            <Route path="/checkout/order-recieved" element={<OrderRecieved />} />
+          </Routes>
         <Footer />
+        </DataContext.Provider>
       </Router>
     </main>
   );

@@ -1,28 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/web-negra.png";
 
 import ShoppingCart from "./ShoppingCart";
-import { ProductToAdd } from "./ProductPage";
+import { DataContext } from "../App";
 
 interface HeaderProps {
-  cartItems: ProductToAdd[];
   handleRemoveProduct: (index: number) => void;
 }
 
 function Header(props: HeaderProps) {
-  const { cartItems, handleRemoveProduct } = props; 
+  const { handleRemoveProduct } = props;
+  
+  const { cartItems, userData, setUserData  } = useContext(DataContext)
 
-  const [showEnviosGratis, setShowEnviosGratis] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowEnviosGratis((prevShowEnviosGratis) => !prevShowEnviosGratis);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleCartIconClick = () => {
     setIsCartOpen((prevIsCartOpen) => !prevIsCartOpen);
@@ -65,7 +58,6 @@ function Header(props: HeaderProps) {
         {isCartOpen && (
           <ShoppingCart
             handleRemoveProduct={handleRemoveProduct}
-            cartItems={cartItems}
             onClose={handleCloseCart}
           />
         )}

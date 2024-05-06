@@ -35,7 +35,7 @@ function Carousel() {
         </div>
       </div>
 
-      <div className="sm:hidden m-6 lg:flex gap-[32px]">
+      <div className="hidden m-6 lg:flex gap-[32px]">
         <Link to={"/products/1"}>
           <img className="w-[200px] hover:border-2" src={shirtImage} alt="Boxy t-shirt #1" />
         </Link>

@@ -1,14 +1,15 @@
-import React from "react";
-import { ProductToAdd } from "./ProductPage";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../App";
 interface ShoppingCartProps {
-  cartItems: ProductToAdd[];
   onClose: () => void;
   handleRemoveProduct: (index: number) => void;
 }
 
 function ShoppingCart(props: ShoppingCartProps) {
-  const { cartItems, onClose, handleRemoveProduct } = props;
+  const { onClose, handleRemoveProduct } = props;
+
+  const { cartItems, userData, setUserData  } = useContext(DataContext)
 
   // Calcular el total
   const calculateTotal = () => {
@@ -21,7 +22,7 @@ function ShoppingCart(props: ShoppingCartProps) {
   const navigate = useNavigate();
 
   const handleCheckoutClick = () => {
-    navigate("/checkout", { state: { cartItems: cartItems } });
+    navigate("/checkout");
     onClose()
   };
 
@@ -133,7 +134,6 @@ function ShoppingCart(props: ShoppingCartProps) {
                   </div>
                   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>
-                      o
                       <button
                         type="button"
                         onClick={onClose}
