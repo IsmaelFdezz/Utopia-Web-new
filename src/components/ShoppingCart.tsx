@@ -9,7 +9,7 @@ interface ShoppingCartProps {
 function ShoppingCart(props: ShoppingCartProps) {
   const { onClose, handleRemoveProduct } = props;
 
-  const { cartItems, userData, setUserData  } = useContext(DataContext)
+  const { cartItems  } = useContext(DataContext)
 
   // Calcular el total
   const calculateTotal = () => {

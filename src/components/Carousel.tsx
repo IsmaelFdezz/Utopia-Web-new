@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 
-import products from "../data/products.json";
-
 // Images
 import shirtImage from "../assets/white-shirt-floor-4-3.jpg";
 import shirtImage2 from "../assets/foto web remera.jpeg";

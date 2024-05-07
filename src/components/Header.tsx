@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/web-negra.png";
 import cartLogo from "../assets/carrito.png"
 
 import ShoppingCart from "./ShoppingCart";
-import { DataContext } from "../App";
 
 interface HeaderProps {
   handleRemoveProduct: (index: number) => void;
@@ -13,10 +12,7 @@ interface HeaderProps {
 function Header(props: HeaderProps) {
   const { handleRemoveProduct } = props;
   
-  const { cartItems, userData, setUserData  } = useContext(DataContext)
-
   const [isCartOpen, setIsCartOpen] = useState(false);
-
 
   const handleCartIconClick = () => {
     setIsCartOpen((prevIsCartOpen) => !prevIsCartOpen);

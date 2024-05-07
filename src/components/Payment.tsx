@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 
 function Payment() {
-  const { cartItems, userData, setUserData } = useContext(DataContext);
+  const { cartItems, userData } = useContext(DataContext);
 
   const [showButton, setShowButton] = useState(false);
   

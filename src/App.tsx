@@ -9,7 +9,6 @@ import ProductPage, { ProductToAdd } from "./components/ProductPage";
 import Footer from "./components/Footer";
 import Checkout from "./components/Checkout";
 import Finish from "./components/Payment";
-import ShoppingCart from "./components/ShoppingCart";
 import OrderRecieved from "./components/OrderRecieved";
 
 export type Product = {

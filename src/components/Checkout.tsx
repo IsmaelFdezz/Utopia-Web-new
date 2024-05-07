@@ -1,14 +1,11 @@
-import React, { ChangeEvent, useState, useRef, useContext } from "react";
-import { ProductToAdd } from "./ProductPage";
 import { useNavigate } from "react-router-dom";
-
-import emailjs from "@emailjs/browser";
 import { DataContext } from "../App";
+import { useContext, useRef, useState } from "react";
 
 function Checkout() {
-  const { cartItems, userData, setUserData } = useContext(DataContext);
+  const { cartItems, setUserData } = useContext(DataContext);
 
-  const [localUserData, setLocalUserData] = useState(null);
+  const [setLocalUserData] = useState(null);
 
   console.log(cartItems);
 
