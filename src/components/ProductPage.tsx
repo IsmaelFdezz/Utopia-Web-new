@@ -2,20 +2,34 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../data/products.json";
+import Carousel from './Carousel';
 
+import useEmblaCarousel from "embla-carousel-react";
+
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';// Images
 import shirtImage from "../assets/white-shirt-floor-4-3.jpg";
+import shirtImage2 from "../assets/foto web remera.jpeg";
+
 import greyHoodieImage from "../assets/hoodie-grey.jpg";
+import greyHoodieImage2 from "../assets/foto buzo girs.jpeg";
+
 import whiteHoodieImage from "../assets/hoodie-white.jpg";
+import whiteHoodieImage2 from "../assets/fotos web buzo blanco.jpeg";
 
 import InputNumber from "./inputs/InputNumber";
 import { Product } from "../App";
+import Typography from "@mui/material/Typography";
 
 export type ProductToAdd = {
-  product: Product,
-  quantity: number,
-  size: string,
-  image: string
-}
+  product: Product;
+  quantity: number;
+  size: string;
+  image: string;
+};
 
 type AddToCartFunction = (productToAdd: ProductToAdd) => void;
 
@@ -26,24 +40,29 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   if (!product) {
     return <div>Producto no encontrado</div>;
   }
-  
+
   // Talles
   const sizes = product.sizes || [];
   const [selectedSize, setSelectedSize] = useState("1");
 
-  console.log(selectedSize)
-  
+  console.log(selectedSize);
+
   // Cantidad
   const [quantity, setQuantity] = useState(1);
 
   // Imagen
   let productImage: string;
+  let productImage2: string;
+
   if (product.id === "1") {
     productImage = shirtImage;
+    productImage2 = shirtImage2;
   } else if (product.id === "2") {
     productImage = greyHoodieImage;
+    productImage2 = greyHoodieImage2;
   } else {
     productImage = whiteHoodieImage;
+    productImage2 = whiteHoodieImage2;
   }
 
   // Agregar al carrito
@@ -52,27 +71,39 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
       product,
       quantity,
       size: selectedSize,
-      image: productImage
+      image: productImage,
     };
     console.log(productToAdd);
     addToCart(productToAdd);
   };
 
-  return (
-    <div className="flex flex-col gap-[32px] items-center container mt-[94px] p-[8px]">
-      <div className="flex flex-col justify-between lg:flex-row gap-[32px] lg:ml-[130px]">
-        <img src={productImage} alt={product.name} className="lg:w-[600px]" />
+  const [emblaRef] = useEmblaCarousel({ loop: true });
 
-        <section className="w-full flex flex-col gap-[32px]">
+  return (
+    <div className="flex flex-col gap-[32px] items-center mt-[94px] p-[8px]">
+      <div className="flex flex-col justify-between lg:flex-row gap-[32px]">
+        {/* Images in mobile */}
+        <div className="embla max-w-[600px]" ref={emblaRef}>
+          <div className="embla__container">
+            <div className="embla__slide max-w-[600px]">
+              <img src={productImage} alt={product.name} />
+            </div>
+            <div className="embla__slide max-w-[600px]">
+              <img src={productImage2} alt={product.name} />
+            </div>
+          </div>
+        </div>
+
+        <section className="w-full flex flex-col gap-[24px]">
           <div>
-            <h1 className="text-4xl font-bold">{product.name}</h1>
-            <p className="text-2xl font-semibold">${product.price}</p>
+            <h1 className="text-4xl">{product.name}</h1>
+            <p className="text-3xl mt-4 font-bold">${product.price}</p>
           </div>
 
           <div className="flex flex-col gap-[8px]">
-            <p>Talle</p>
+            <p className="text-xl">Talle</p>
             <div className="flex flex-row gap-[16px]">
-              { sizes.map((size) => (
+              {sizes.map((size) => (
                 <label key={size} className="flex items-center">
                   <input
                     type="radio"
@@ -82,7 +113,11 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
                     onChange={(e) => setSelectedSize(e.target.value)}
                     className="sr-only"
                   />
-                  <div className={`cursor-pointer border border-gray-200 w-[40px] h-[40px] flex items-center justify-center ${selectedSize === size ? 'bg-gray-50 !border-black' : ''}`}>
+                  <div
+                    className={`cursor-pointer border border-gray-200 w-[50px] h-[50px] flex items-center justify-center ${
+                      selectedSize === size ? "bg-gray-50 !border-gray-500" : ""
+                    }`}
+                  >
                     {size}
                   </div>
                 </label>
@@ -91,7 +126,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           </div>
 
           <div className="flex flex-row gap-[16px] items-center">
-            <InputNumber value={quantity} onChange={setQuantity}/>
+            <InputNumber value={quantity} onChange={setQuantity} />
 
             <button
               onClick={handleAddToCart}
@@ -101,15 +136,29 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
             </button>
           </div>
 
-          <div className="w-full">
-            <ul className="list-disc">
-              {product.description.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
-          </div>
+     
+
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Typography>Descripción</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                {product.description.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </section>
+
+        
       </div>
+      <Carousel></Carousel>
     </div>
   );
 }

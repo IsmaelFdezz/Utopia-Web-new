@@ -67,7 +67,7 @@ function Payment() {
       {showButton && (
         <div>
           <p className="font-bold mb-2">
-            Se realizara la compra de los siguientes productos:
+            Se realizara el pedido de los siguientes productos:
           </p>
           {cartItems.map((item) => (
             <p className="mb-4">

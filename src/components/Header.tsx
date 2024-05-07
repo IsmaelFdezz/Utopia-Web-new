@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/web-negra.png";
+import cartLogo from "../assets/carrito.png"
 
 import ShoppingCart from "./ShoppingCart";
 import { DataContext } from "../App";
@@ -29,7 +30,7 @@ function Header(props: HeaderProps) {
     <header className="bg-white fixed top-0 left-0 right-0 z-50 shadow-lg">
       <div className="header-bar bg-[#004080] text-white p-2 flex justify-center transition-opacity duration-500">
         <p
-          className={`text-sm}`}
+          className="text-xs"
         >
           ENVIOS GRATIS EN ROSARIO
         </p>
@@ -39,21 +40,10 @@ function Header(props: HeaderProps) {
           <img src={logo} alt="Logo" className="h-10" />
         </Link>
         <div
-          className="ml-auto mr-[16px] cursor-pointer"
+          className="ml-auto w-[21px] mr-[16px] cursor-pointer"
           onClick={handleCartIconClick}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24px"
-            height="24px"
-            viewBox="0 0 1024 1024"
-            className="icon"
-          >
-            <path
-              fill="#000000"
-              d="M432 928a48 48 0 110-96 48 48 0 010 96zm320 0a48 48 0 110-96 48 48 0 010 96zM96 128a32 32 0 010-64h160a32 32 0 0131.36 25.728L320.64 256H928a32 32 0 0131.296 38.72l-96 448A32 32 0 01832 768H384a32 32 0 01-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"
-            />
-          </svg>
+          <img src={cartLogo} alt="carrito" />
         </div>
         {isCartOpen && (
           <ShoppingCart
