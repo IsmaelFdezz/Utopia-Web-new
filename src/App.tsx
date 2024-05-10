@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Checkout from "./components/Checkout";
 import Finish from "./components/Payment";
 import OrderRecieved from "./components/OrderRecieved";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 export type Product = {
   id: string;
@@ -54,6 +55,7 @@ function App() {
             <Route path="/checkout/payment" element={<Finish />} />
             <Route path="/checkout/order-recieved" element={<OrderRecieved />} />
           </Routes>
+        <WhatsAppButton></WhatsAppButton>
         <Footer />
         </DataContext.Provider>
       </Router>

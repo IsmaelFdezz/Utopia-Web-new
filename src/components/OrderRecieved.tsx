@@ -3,7 +3,7 @@ import { DataContext } from "../App";
 import { useLocation } from "react-router-dom";
 
 function OrderRecieved() {
-  const { cartItems, userData, setUserData } = useContext(DataContext);
+  const { cartItems } = useContext(DataContext);
 
   const location = useLocation();
     const orderNumber = location.state.orderNumber;
