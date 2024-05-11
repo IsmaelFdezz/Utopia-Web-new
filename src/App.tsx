@@ -11,6 +11,7 @@ import Checkout from "./components/Checkout";
 import Finish from "./components/Payment";
 import OrderRecieved from "./components/OrderRecieved";
 import WhatsAppButton from "./components/WhatsAppButton";
+import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
 
 export type Product = {
   id: string;
@@ -43,6 +44,7 @@ function App() {
   return (
     <main className="flex flex-col height-screen justify-between h-screen">
       <Router>
+      <ScrollToTopOnNavigate />
         <DataContext.Provider value={{cartItems, userData, setUserData}}>
           <Header handleRemoveProduct={handleRemoveProduct} />
           <Routes>

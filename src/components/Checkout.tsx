@@ -5,7 +5,7 @@ import { useContext, useRef, useState } from "react";
 function Checkout() {
   const { cartItems, setUserData } = useContext(DataContext);
 
-  const [setLocalUserData] = useState(null);
+  const [localUserData, setLocalUserData] = useState(null);
 
   console.log(cartItems);
 
@@ -70,6 +70,8 @@ function Checkout() {
       notes,
       message,
     };
+
+    console.log(localUserData)
 
     setLocalUserData(localUserData);
 
