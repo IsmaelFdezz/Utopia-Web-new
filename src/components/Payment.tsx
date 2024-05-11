@@ -159,7 +159,7 @@ function Payment() {
       )}
 
       {/* Mercado Pago */}
-      <div
+      {/* <div
         onClick={() => handlePayment("mercadopago")}
         className="flex flex-col width-[800px] shadow-md p-2 cursor-pointer"
       >
@@ -169,7 +169,7 @@ function Payment() {
           en el que te permitira abonar con tarjetas de credito, debito,
           efectivo o dinero en cuenta.
         </p>
-      </div>
+      </div> */}
 
       {showButton === "mercadopago" && (
         <div>
