@@ -5,10 +5,10 @@ import emailjs from "@emailjs/browser";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import RefreshIcon from '@mui/icons-material/Refresh';
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 function Payment() {
-  initMercadoPago("TEST-138cd46e-a93c-42ac-80b5-1330161e947b", {
+  initMercadoPago("APP_USR-bba29572-4944-4cf4-95d2-f926215ce546", {
     locale: "es-AR",
   });
 
@@ -16,9 +16,10 @@ function Payment() {
 
   const [loading, setLoading] = useState(false);
 
-  const [showButton, setShowButton] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const [preferenceId, setPreferenceId] = useState(null);
+
 
   console.log(userData.message);
 
@@ -33,10 +34,10 @@ function Payment() {
   const orderNumber = Math.floor(Math.random() * 9000) + 1000;
 
   const handlePayment = (method: string) => {
-    if (showButton === method) {
-      setShowButton(null);
+    if (paymentMethod === method) {
+      setPaymentMethod(null);
     } else {
-      setShowButton(method);
+      setPaymentMethod(method);
     }
   };
 
@@ -49,7 +50,7 @@ function Payment() {
 
     const templateParams = {
       from_name: `Numero de pedido: ${orderNumber}`,
-      message: userData.message,
+      message: `${userData.message}. Metodo de pago: ${paymentMethod}`,
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey).then(
@@ -63,14 +64,14 @@ function Payment() {
     );
   };
 
-  const handleButton = (method: string) => {
+  const handleButton = () => {
     setLoading(true);
-    if (method === "deposit") {
+    if (paymentMethod === "deposit") {
       sendEmail();
       navigate("/checkout/order-recieved", {
         state: { orderNumber: orderNumber },
       });
-    } else if (method === "mercadopago") {
+    } else if (paymentMethod === "mercadopago") {
       handleMp();
     }
   };
@@ -126,7 +127,7 @@ function Payment() {
         </p>
       </div>
 
-      {showButton === "deposit" && (
+      {paymentMethod === "deposit" && (
         <div>
           <p className="font-bold mb-2">
             Se realizara el pedido de los siguientes productos:
@@ -147,19 +148,17 @@ function Payment() {
             ${calculateTotal().toFixed(2)}
           </p>
           <button
-            onClick={() => handleButton("deposit")}
+            onClick={() => handleButton()}
             className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
           >
-            {loading && (
-              <RefreshIcon className="animate-spin"/>
-            )}
+            {loading && <RefreshIcon className="animate-spin" />}
             Confirmar pedido
           </button>
         </div>
       )}
 
       {/* Mercado Pago */}
-      {/* <div
+      <div
         onClick={() => handlePayment("mercadopago")}
         className="flex flex-col width-[800px] shadow-md p-2 cursor-pointer"
       >
@@ -169,9 +168,9 @@ function Payment() {
           en el que te permitira abonar con tarjetas de credito, debito,
           efectivo o dinero en cuenta.
         </p>
-      </div> */}
+      </div>
 
-      {showButton === "mercadopago" && (
+      {paymentMethod === "mercadopago" && (
         <div>
           <p className="font-bold mb-2">
             Se realizara el pedido de los siguientes productos:
@@ -192,12 +191,10 @@ function Payment() {
             ${calculateTotal().toFixed(2)}
           </p>
           <button
-            onClick={() => handleButton("mercadopago")}
+            onClick={() => handleButton()}
             className="flex justify-center items-center bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
           >
-            {loading && (
-              <RefreshIcon className="animate-spin"/>
-            )}
+            {loading && <RefreshIcon className="animate-spin" />}
             Confirmar pedido
           </button>
           {preferenceId && (
