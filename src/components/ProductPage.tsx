@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../data/products.json";
-import Carousel from './Carousel';
+import Carousel from "./Carousel";
 
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -10,7 +10,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';// Images
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Images
 import shirtImage from "../assets/white-shirt-floor-4-3.jpg";
 import shirtImage2 from "../assets/foto web remera.jpeg";
 
@@ -80,7 +80,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
-    <div className="flex flex-col gap-[32px] items-center mt-[94px] p-[8px]">
+    <div className="flex flex-col gap-[32px] items-center mt-[94px] py-[8px]">
       <div className="flex flex-col justify-between lg:flex-row gap-[32px]">
         {/* Images in mobile */}
         <div className="embla max-w-[600px]" ref={emblaRef}>
@@ -94,14 +94,14 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           </div>
         </div>
 
-        <section className="w-full flex flex-col gap-[24px]">
+        <section className="w-full px-[8px] flex flex-col gap-[24px]">
           <div>
-            <h1 className="text-4xl">{product.name}</h1>
-            <p className="text-3xl mt-4 font-bold">${product.price}</p>
+            <h1 className="text-2xl">{product.name}</h1>
+            <p className="text-2xl mt-2">${product.price}</p>
           </div>
 
           <div className="flex flex-col gap-[8px]">
-            <p className="text-xl">Talle</p>
+            <p className="text-l">Talle</p>
             <div className="flex flex-row gap-[16px]">
               {sizes.map((size) => (
                 <label key={size} className="flex items-center">
@@ -114,7 +114,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
                     className="sr-only"
                   />
                   <div
-                    className={`cursor-pointer border border-gray-200 w-[50px] h-[50px] flex items-center justify-center ${
+                    className={`cursor-pointer border border-gray-200 w-[38px] h-[38px] flex items-center justify-center ${
                       selectedSize === size ? "bg-gray-50 !border-gray-500" : ""
                     }`}
                   >
@@ -136,27 +136,42 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
             </button>
           </div>
 
-     
+          <div>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <Typography>Detalles</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  {product.description.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-            >
-              <Typography>Descripción</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                {product.description.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <Typography>Guia de talles</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  {product.description.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </div>
         </section>
-
-        
       </div>
       <Carousel></Carousel>
     </div>

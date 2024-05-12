@@ -1,7 +1,8 @@
 function Footer() {
   return (
-    <footer className="bg-black min-h-10">
-      <div className="flex justify-end items-center h-full mx-6">
+    <footer className="bg-black">
+      <div>aaaaaaaaaas</div>
+      <div className="flex justify-center items-center mx-6 p-4">
         <a
           href="https://www.instagram.com/utopia.stw/"
           target="_blank"

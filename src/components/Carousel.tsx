@@ -19,9 +19,9 @@ function Carousel() {
   const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
-    <div className="flex flex-col items-center justify-center mt-6">
-      <h1 className="text-2xl mx-6 lg:hidden">Destacados</h1>
-      <div className="embla m-6 lg:w-[500px] lg:hidden" ref={emblaRef}>
+    <div className="flex flex-col gap-[21px] items-center justify-center mt-6">
+      <h1 className="text-2 xl mx-6">DESTACADOS</h1>
+      {/* <div className="embla m-6 lg:w-[500px] lg:hidden" ref={emblaRef}>
         
         <div className="embla__container">
           <div className="embla__slide ">
@@ -49,19 +49,18 @@ function Carousel() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="hidden lg:flex items-center flex-col gap-[16px] mt-4 mb-8">
-        <h1 className="text-2xl mb-4">Destacados</h1>
-        <div className="hm-6 flex gap-[32px] justify-center">
+      <div className="flex items-center flex-col gap-[16px] mt-4 mb-8">
+        <div className="hm-6 flex flex-col lg:flex-row gap-[32px] justify-center">
           <Link to={"/products/1"} className="group relative">
             <img
-              className="w-[250px] group-hover:hidden"
+              className="w-[300px] group-hover:hidden"
               src={shirtImage}
               alt="Boxy t-shirt #1"
             />
             <img
-              className="w-[250px] hidden group-hover:block"
+              className="w-[300px] hidden group-hover:block"
               src={shirtImage2}
               alt="Boxy t-shirt #1"
             />
@@ -71,12 +70,12 @@ function Carousel() {
           </Link>
           <Link to={"/products/2"} className="group relative">
             <img
-              className="w-[250px] group-hover:hidden"
+              className="w-[300px] group-hover:hidden"
               src={greyHoodie}
               alt="Boxy Hoodie"
             />
             <img
-              className="w-[250px] hidden group-hover:block"
+              className="w-[300px] hidden group-hover:block"
               src={greyHoodieImage2}
               alt="Boxy Hoodie"
             />
@@ -86,12 +85,12 @@ function Carousel() {
           </Link>
           <Link to={"/products/3"} className="group relative">
             <img
-              className="w-[250px] group-hover:hidden"
+              className="w-[300px] group-hover:hidden"
               src={whiteHoodie}
               alt="Boxy Hoodie"
             />
             <img
-              className="w-[250px] hidden group-hover:block"
+              className="w-[300px] hidden group-hover:block"
               src={whiteHoodieImage2}
               alt="Boxy Hoodie"
             />
