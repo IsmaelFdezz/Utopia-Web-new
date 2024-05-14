@@ -6,6 +6,13 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Images
 
 function Payment() {
   initMercadoPago("APP_USR-bba29572-4944-4cf4-95d2-f926215ce546", {
@@ -19,7 +26,6 @@ function Payment() {
   const [paymentMethod, setPaymentMethod] = useState(null);
 
   const [preferenceId, setPreferenceId] = useState(null);
-
 
   console.log(userData.message);
 
@@ -115,96 +121,108 @@ function Payment() {
     <div className="flex flex-col gap-[32px] align-center mt-[94px] p-[32px]">
       <h1 className="text-xl font-bold">Seleccionar medio de pago</h1>
 
-      {/* Transferencia */}
-      <div
-        onClick={() => handlePayment("deposit")}
-        className="flex flex-col width-[800px] shadow-md p-2 cursor-pointer"
-      >
-        <h3 className="font-bold">Transferencia</h3>
-        <p>
-          Se proporcionaran los datos para realizar la transferencia. El pedido
-          no se procesara hasta haber recibido el importe.
-        </p>
-      </div>
-
-      {paymentMethod === "deposit" && (
-        <div>
-          <p className="font-bold mb-2">
-            Se realizara el pedido de los siguientes productos:
-          </p>
-          {cartItems.map((item) => (
-            <p className="mb-4">
-              <span>{item.product.name}</span>
-              <br />
-              <span>Precio: ${item.product.price}</span>
-              <br />
-              <span>Talle: {item.size}</span>
-              <br />
-              <span>Cantidad: {item.quantity}</span>
+      <Accordion>
+        <AccordionSummary
+          onClick={() => handlePayment("deposit")}
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography>
+            <h3 className="font-bold">Transferencia</h3>
+            <p>
+              Se proporcionaran los datos para realizar la transferencia. El
+              pedido no se procesara hasta haber recibido el importe.
             </p>
-          ))}
-          <p className="text-xl">Total:</p>
-          <p className="font-bold mb-4 text-xl">
-            ${calculateTotal().toFixed(2)}
-          </p>
-          <button
-            onClick={() => handleButton()}
-            className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
-          >
-            {loading && <RefreshIcon className="animate-spin" />}
-            Confirmar pedido
-          </button>
-        </div>
-      )}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            <div>
+              <p className="font-bold mb-2">
+                Se realizara el pedido de los siguientes productos:
+              </p>
+              {cartItems.map((item) => (
+                <p className="mb-4">
+                  <span>{item.product.name}</span>
+                  <br />
+                  <span>Precio: ${item.product.price}</span>
+                  <br />
+                  <span>Talle: {item.size}</span>
+                  <br />
+                  <span>Cantidad: {item.quantity}</span>
+                </p>
+              ))}
+              <p className="text-xl">Total:</p>
+              <p className="font-bold mb-4 text-xl">
+                ${calculateTotal().toFixed(2)}
+              </p>
+              <button
+                onClick={() => handleButton()}
+                className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
+              >
+                {loading && <RefreshIcon className="animate-spin" />}
+                Confirmar pedido
+              </button>
+            </div>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
 
-      {/* Mercado Pago */}
-      <div
-        onClick={() => handlePayment("mercadopago")}
-        className="flex flex-col width-[800px] shadow-md p-2 cursor-pointer"
-      >
-        <h3 className="font-bold">Mercado Pago</h3>
-        <p>
-          Al clickear en el boton "Confirmar pedido" se abrirá un link de pago
-          en el que te permitira abonar con tarjetas de credito, debito,
-          efectivo o dinero en cuenta.
-        </p>
-      </div>
-
-      {paymentMethod === "mercadopago" && (
-        <div>
-          <p className="font-bold mb-2">
-            Se realizara el pedido de los siguientes productos:
-          </p>
-          {cartItems.map((item) => (
-            <p className="mb-4">
-              <span>{item.product.name}</span>
-              <br />
-              <span>Precio: ${item.product.price}</span>
-              <br />
-              <span>Talle: {item.size}</span>
-              <br />
-              <span>Cantidad: {item.quantity}</span>
+      <Accordion>
+        <AccordionSummary
+          onClick={() => handlePayment("mercadopago")}
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography>
+            <h3 className="font-bold">Mercado Pago</h3>
+            <p>
+              Al clickear en el boton "Confirmar pedido" se abrirá un link de
+              pago en el que te permitira abonar con tarjetas de credito,
+              debito, efectivo o dinero en cuenta.
             </p>
-          ))}
-          <p className="text-xl">Total:</p>
-          <p className="font-bold mb-4 text-xl">
-            ${calculateTotal().toFixed(2)}
-          </p>
-          <button
-            onClick={() => handleButton()}
-            className="flex justify-center items-center bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
-          >
-            {loading && <RefreshIcon className="animate-spin" />}
-            Confirmar pedido
-          </button>
-          {preferenceId && (
-            <Wallet
-              initialization={{ preferenceId: preferenceId }}
-              customization={{ texts: { valueProp: "smart_option" } }}
-            />
-          )}
-        </div>
-      )}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            <div>
+              <p className="font-bold mb-2">
+                Se realizara el pedido de los siguientes productos:
+              </p>
+              {cartItems.map((item) => (
+                <p className="mb-4">
+                  <span>{item.product.name}</span>
+                  <br />
+                  <span>Precio: ${item.product.price}</span>
+                  <br />
+                  <span>Talle: {item.size}</span>
+                  <br />
+                  <span>Cantidad: {item.quantity}</span>
+                </p>
+              ))}
+              <p className="text-xl">Total:</p>
+              <p className="font-bold mb-4 text-xl">
+                ${calculateTotal().toFixed(2)}
+              </p>
+              <button
+                onClick={() => handleButton()}
+                className="flex justify-center items-center bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
+              >
+                {loading && <RefreshIcon className="animate-spin" />}
+                Confirmar pedido
+              </button>
+              {preferenceId && (
+                <Wallet
+                  initialization={{ preferenceId: preferenceId }}
+                  customization={{ texts: { valueProp: "smart_option" } }}
+                />
+              )}
+            </div>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 }

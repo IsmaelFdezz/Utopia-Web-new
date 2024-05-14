@@ -20,6 +20,9 @@ import greyHoodieImage2 from "../assets/foto buzo girs.jpeg";
 import whiteHoodieImage from "../assets/hoodie-white.jpg";
 import whiteHoodieImage2 from "../assets/fotos web buzo blanco.jpeg";
 
+import talles1 from "../assets/talles-1.jpg";
+import talles2 from "../assets/talles-2.jpg";
+
 import InputNumber from "./inputs/InputNumber";
 import { Product } from "../App";
 import Typography from "@mui/material/Typography";
@@ -44,6 +47,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   // Talles
   const sizes = product.sizes || [];
   const [selectedSize, setSelectedSize] = useState("1");
+  let sizeGuideImg: string;
 
   console.log(selectedSize);
 
@@ -57,12 +61,16 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   if (product.id === "1") {
     productImage = shirtImage;
     productImage2 = shirtImage2;
+    sizeGuideImg = talles1;
+    
   } else if (product.id === "2") {
     productImage = greyHoodieImage;
     productImage2 = greyHoodieImage2;
+    sizeGuideImg = talles2;
   } else {
     productImage = whiteHoodieImage;
     productImage2 = whiteHoodieImage2;
+    sizeGuideImg = talles2
   }
 
   // Agregar al carrito
@@ -163,10 +171,8 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
                 <Typography>Guia de talles</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  {product.description.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
+                <Typography className="flex justify-center">
+                  <img style={{width: '200px'}} src={sizeGuideImg} alt="Guia de talles" />
                 </Typography>
               </AccordionDetails>
             </Accordion>
