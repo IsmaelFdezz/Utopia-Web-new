@@ -34,7 +34,7 @@ function Payment() {
     if (userData.deliverMethod === "delivery") {
       return cartItems.reduce((total: number, item: any) => {
         return total + item.product.price * item.quantity;
-      }, 0) + 1800; // Sumar el costo de envío al total
+      }, 0) + 2; // Sumar el costo de envío al total
     }
     
     return cartItems.reduce((total: number, item: any) => {
@@ -53,7 +53,7 @@ function Payment() {
     setUserData(localUserData);
 
     if (method  === "deposit") {
-      // sendEmail();
+      sendEmail();
       setLoading(false)
       navigate("/checkout/order-recieved", {
         state: { orderNumber: orderNumber, total: calculateTotal()}
@@ -105,7 +105,7 @@ function Payment() {
       );
 
       const { id } = response.data;
-      // sendEmail();
+      sendEmail();
       setLoading(false);
       return id;
     } catch (error) {
