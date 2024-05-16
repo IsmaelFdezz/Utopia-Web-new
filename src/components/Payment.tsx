@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
@@ -19,7 +19,7 @@ function Payment() {
     locale: "es-AR",
   });
 
-  const { cartItems, userData } = useContext(DataContext);
+  const { cartItems, userData, setUserData } = useContext(DataContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -27,10 +27,16 @@ function Payment() {
 
   const [preferenceId, setPreferenceId] = useState(null);
 
-  console.log(userData.message);
+  const navigate = useNavigate();
 
   // Calcular el total
   const calculateTotal = () => {
+    if (userData.deliverMethod === "delivery") {
+      return cartItems.reduce((total: number, item: any) => {
+        return total + item.product.price * item.quantity;
+      }, 0) + 1800; // Sumar el costo de envío al total
+    }
+    
     return cartItems.reduce((total: number, item: any) => {
       return total + item.product.price * item.quantity;
     }, 0);
@@ -39,15 +45,24 @@ function Payment() {
   // Generar numero de pedido
   const orderNumber = Math.floor(Math.random() * 9000) + 1000;
 
-  const handlePayment = (method: string) => {
-    if (paymentMethod === method) {
-      setPaymentMethod(null);
-    } else {
-      setPaymentMethod(method);
+  // Boton de confirmar
+  const handleButton = async (method: string) => {
+    setLoading(true);
+    setPaymentMethod(method);
+    const localUserData = { ...userData, paymentMethod: method };
+    setUserData(localUserData);
+
+    if (method  === "deposit") {
+      // sendEmail();
+      setLoading(false)
+      navigate("/checkout/order-recieved", {
+        state: { orderNumber: orderNumber, total: calculateTotal()}
+      });
+    } else if (method  === "mercadopago") {
+      setLoading(false)
+      await handleMp();
     }
   };
-
-  const navigate = useNavigate();
 
   const sendEmail = () => {
     const serviceId = "service_d347jw9";
@@ -56,7 +71,7 @@ function Payment() {
 
     const templateParams = {
       from_name: `Numero de pedido: ${orderNumber}`,
-      message: `${userData.message}. Metodo de pago: ${paymentMethod}`,
+      message: `${userData.message}. Metodo de pago: ${userData.paymentMethod}. Metodo de entrega: ${userData.deliverMethod}`,
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey).then(
@@ -68,18 +83,6 @@ function Payment() {
         console.log("Error sending email", error);
       }
     );
-  };
-
-  const handleButton = () => {
-    setLoading(true);
-    if (paymentMethod === "deposit") {
-      sendEmail();
-      navigate("/checkout/order-recieved", {
-        state: { orderNumber: orderNumber },
-      });
-    } else if (paymentMethod === "mercadopago") {
-      handleMp();
-    }
   };
 
   const createPreference = async () => {
@@ -102,7 +105,7 @@ function Payment() {
       );
 
       const { id } = response.data;
-      sendEmail();
+      // sendEmail();
       setLoading(false);
       return id;
     } catch (error) {
@@ -123,7 +126,6 @@ function Payment() {
 
       <Accordion>
         <AccordionSummary
-          onClick={() => handlePayment("deposit")}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
@@ -153,12 +155,28 @@ function Payment() {
                   <span>Cantidad: {item.quantity}</span>
                 </p>
               ))}
+              {userData.deliverMethod === "delivery" && (
+                <div className="flex gap-1 ">
+                  <p className="text-l">Envio:</p>
+                  <p className="mb-4 text-l">
+                    $1800.00
+                  </p>
+                </div>
+              )}
+              {userData.deliverMethod === "pickup" && (
+                <div className="flex gap-1 ">
+                  <p className="text-l">Retiro Pick Up:</p>
+                  <p className="mb-4 text-l">
+                    España 961, 1-4
+                  </p>
+                </div>
+              )}
               <p className="text-xl">Total:</p>
               <p className="font-bold mb-4 text-xl">
                 ${calculateTotal().toFixed(2)}
               </p>
               <button
-                onClick={() => handleButton()}
+                onClick={() => handleButton("deposit")}
                 className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
               >
                 {loading && <RefreshIcon className="animate-spin" />}
@@ -171,7 +189,6 @@ function Payment() {
 
       <Accordion>
         <AccordionSummary
-          onClick={() => handlePayment("mercadopago")}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
@@ -202,12 +219,28 @@ function Payment() {
                   <span>Cantidad: {item.quantity}</span>
                 </p>
               ))}
+               {userData.deliverMethod === "delivery" && (
+                <div className="flex gap-1 ">
+                  <p className="text-l">Envio:</p>
+                  <p className="mb-4 text-l">
+                    $1800.00
+                  </p>
+                </div>
+              )}
+              {userData.deliverMethod === "pickup" && (
+                <div className="flex gap-1 ">
+                  <p className="text-l">Retiro Pick Up:</p>
+                  <p className="mb-4 text-l">
+                    España 961, 1-4
+                  </p>
+                </div>
+              )}
               <p className="text-xl">Total:</p>
               <p className="font-bold mb-4 text-xl">
                 ${calculateTotal().toFixed(2)}
               </p>
               <button
-                onClick={() => handleButton()}
+                onClick={() => handleButton("mercadopago")}
                 className="flex justify-center items-center bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
               >
                 {loading && <RefreshIcon className="animate-spin" />}

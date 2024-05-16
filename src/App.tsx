@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -11,7 +11,8 @@ import Checkout from "./components/Checkout";
 import Finish from "./components/Payment";
 import OrderRecieved from "./components/OrderRecieved";
 import WhatsAppButton from "./components/WhatsAppButton";
-import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
+import ScrollToTopOnNavigate from "./components/ScrollToTopOnNavigate";
+import { Deliver } from "./components/Deliver";
 
 export type Product = {
   id: string;
@@ -29,6 +30,18 @@ function App() {
 
   const [userData, setUserData] = useState(null);
 
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const userResponse = prompt("Contraseña:");
+    // Aquí comparas la contraseña ingresada con la contraseña requerida
+    if (userResponse === "paloflaco") {
+      setAuthenticated(true);
+    } else {
+      alert("Contraseña incorrecta");
+    }
+  }, []); // El array vacío indica que esta función se ejecutará solo una vez al montar el componente
+
   const addToCart = (productToAdd: ProductToAdd) => {
     setCartItems([...cartItems, productToAdd]);
   };
@@ -41,26 +54,34 @@ function App() {
 
   console.log(cartItems);
 
+  console.log(userData);
+
   return (
     <main className="flex flex-col height-screen justify-between h-screen">
-      <Router>
-      <ScrollToTopOnNavigate />
-        <DataContext.Provider value={{cartItems, userData, setUserData}}>
-          <Header handleRemoveProduct={handleRemoveProduct} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/products/:productId"
-              element={<ProductPage addToCart={addToCart} />}
-            />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/checkout/payment" element={<Finish />} />
-            <Route path="/checkout/order-recieved" element={<OrderRecieved />} />
-          </Routes>
-        <WhatsAppButton></WhatsAppButton>
-        <Footer />
-        </DataContext.Provider>
-      </Router>
+      {authenticated ? (
+        <Router>
+          <ScrollToTopOnNavigate />
+          <DataContext.Provider value={{ cartItems, userData, setUserData }}>
+            <Header handleRemoveProduct={handleRemoveProduct} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/products/:productId"
+                element={<ProductPage addToCart={addToCart} />}
+              />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/payment" element={<Finish />} />
+              <Route
+                path="/checkout/order-recieved"
+                element={<OrderRecieved />}
+              />
+              <Route path="/checkout/deliver" element={<Deliver />} />
+            </Routes>
+            <WhatsAppButton></WhatsAppButton>
+            <Footer />
+          </DataContext.Provider>
+        </Router>
+      ) : null}
     </main>
   );
 }

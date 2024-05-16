@@ -31,6 +31,8 @@ function Checkout() {
     const email = formData.get("email");
     const dni = formData.get("dni");
     const notes = formData.get("notes");
+    const deliverMethod = null;
+    const paymentMethod = null;
 
     const message = `
       Nombre: ${name}
@@ -69,6 +71,8 @@ function Checkout() {
       dni,
       notes,
       message,
+      deliverMethod,
+      paymentMethod
     };
 
     console.log(localUserData)
@@ -87,7 +91,7 @@ function Checkout() {
       console.log("no data");
     }
 
-    navigate("/checkout/payment");
+    navigate("/checkout/deliver");
   };
 
   return (

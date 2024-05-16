@@ -2,7 +2,7 @@
     {
         "id": "1",
         "name": "UTOPIA 2000S BOXY T-SHIRT",
-        "price": 19000,
+        "price": 1,
         "description": [
             "100% algodón",
             "Estampada en serigrafía",
@@ -15,7 +15,7 @@
     {
         "id": "2",
         "name": "UTOPIA 2000S CREWNECK (GREY)",
-        "price": 34000,
+        "price": 1,
         "description": [
             "100% algodón",
             "Bordado de alta calidad",
@@ -28,7 +28,7 @@
     {
         "id": "3",
         "name": "UTOPIA 2000S CREWNECK (WHITE)",
-        "price": 34000,
+        "price": 1,
         "description": [
             "100% algodón",
             "Bordado de alta calidad",
