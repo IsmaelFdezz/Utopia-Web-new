@@ -17,10 +17,11 @@
         "name": "UTOPIA 2000S CREWNECK (GREY)",
         "price": 34000,
         "description": [
-            "Frisa invisible (410gsm)",
+            "70% algodón - 30% poliester",
             "Bordado de alta calidad",
             "Boxy fit",
-            "70% algodón - 30% poliester"
+            "Frisa invisible (410gsm)"
+            
         ],
         "sizes": ["1", "2"],
         "image": "grey-hoodie"
@@ -30,10 +31,11 @@
         "name": "UTOPIA 2000S CREWNECK (WHITE)",
         "price": 34000,
         "description": [
-            "Frisa de algodon (430gsm)",
+            "100% algodón",
             "Bordado de alta calidad",
             "Boxy fit",
-            "100% algodón"
+            "Frisa de algodon (430gsm)"
+            
         ],
         "sizes": ["1", "2"],
         "image": "grey-hoodie"
