@@ -2,7 +2,7 @@
     {
         "id": "1",
         "name": "UTOPIA 2000S BOXY T-SHIRT",
-        "price": 1,
+        "price": 19000,
         "description": [
             "100% algodón",
             "Estampada en serigrafía",
@@ -15,12 +15,12 @@
     {
         "id": "2",
         "name": "UTOPIA 2000S CREWNECK (GREY)",
-        "price": 1,
+        "price": 34000,
         "description": [
-            "100% algodón",
+            "Frisa invisible (410gsm)",
             "Bordado de alta calidad",
             "Boxy fit",
-            "Frisa invisible (410gsm)"
+            "70% algodón - 30% poliester"
         ],
         "sizes": ["1", "2"],
         "image": "grey-hoodie"
@@ -28,12 +28,12 @@
     {
         "id": "3",
         "name": "UTOPIA 2000S CREWNECK (WHITE)",
-        "price": 1,
+        "price": 34000,
         "description": [
-            "100% algodón",
+            "Frisa de algodon (430gsm)",
             "Bordado de alta calidad",
             "Boxy fit",
-            "Frisa invisible (410gsm)"
+            "100% algodón"
         ],
         "sizes": ["1", "2"],
         "image": "grey-hoodie"

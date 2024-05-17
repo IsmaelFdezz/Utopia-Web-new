@@ -48,7 +48,7 @@ export function Deliver() {
         <AccordionDetails>
           <Typography>
             <div>
-              <p className="font-bold mb-2">Cadeteria de confianza</p>
+              <p className="font-bold mb-2">Cadeteria de confianza. Dentro de las 24hs hábiles</p>
               <p className="text-xl mb-4">$1800</p>
               <button
                 onClick={() => handleButton("delivery")}

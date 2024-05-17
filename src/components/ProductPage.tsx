@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import products from "../data/products.json";
 import Carousel from "./Carousel";
@@ -47,6 +47,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   // Talles
   const sizes = product.sizes || [];
   const [selectedSize, setSelectedSize] = useState("1");
+
   let sizeGuideImg: string;
 
   console.log(selectedSize);
@@ -62,7 +63,6 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
     productImage = shirtImage;
     productImage2 = shirtImage2;
     sizeGuideImg = talles1;
-    
   } else if (product.id === "2") {
     productImage = greyHoodieImage;
     productImage2 = greyHoodieImage2;
@@ -70,8 +70,14 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   } else {
     productImage = whiteHoodieImage;
     productImage2 = whiteHoodieImage2;
-    sizeGuideImg = talles2
+    sizeGuideImg = talles2;
   }
+
+  const [selectedImage, setSelectedImage] = useState(productImage);
+
+  useEffect(() => {
+    setSelectedImage(productImage);
+  }, [productImage]);
 
   // Agregar al carrito
   const handleAddToCart = () => {
@@ -88,10 +94,29 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
-    <div className="flex flex-col gap-[32px] items-center mt-[94px] py-[8px]">
+    <div className="flex flex-col lg:mx-[32px] lg:grid lg:grid-cols-[auto, auto] gap-y-[32px] gap-x-[32px] mt-[94px] py-[8px]">
+      <div className="hidden lg:flex flex-col items-center gap-8">
+        <img
+          onClick={() => setSelectedImage(productImage)}
+          className={`${
+            selectedImage === productImage ? "opacity-70" : ""
+          } hover:opacity-70 max-w-[180px] cursor-pointer`}
+          src={productImage}
+          alt={product.name}
+        />
+        <img
+          onClick={() => setSelectedImage(productImage2)}
+          className={`${
+            selectedImage === productImage2 ? "opacity-70" : ""
+          } hover:opacity-70 max-w-[180px] cursor-pointer`}
+          src={productImage2}
+          alt={product.name}
+        />
+      </div>
+
       <div className="flex flex-col justify-between lg:flex-row gap-[32px]">
         {/* Images in mobile */}
-        <div className="embla max-w-[600px]" ref={emblaRef}>
+        <div className="lg:hidden embla max-w-[600px]" ref={emblaRef}>
           <div className="embla__container">
             <div className="embla__slide max-w-[600px]">
               <img src={productImage} alt={product.name} />
@@ -100,6 +125,17 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
               <img src={productImage2} alt={product.name} />
             </div>
           </div>
+        </div>
+
+        {/* Images in desk */}
+        <div className="hidden lg:flex w-[1000px]">
+          {selectedImage === productImage && (
+            <img src={productImage} alt={product.name} />
+          )}
+
+          {selectedImage === productImage2 && (
+            <img src={productImage2} alt={product.name} />
+          )}
         </div>
 
         <section className="w-full px-[8px] flex flex-col gap-[24px]">
@@ -172,14 +208,21 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography className="flex justify-center">
-                  <img style={{width: '200px'}} src={sizeGuideImg} alt="Guia de talles" />
+                  <img
+                    style={{ width: "200px" }}
+                    src={sizeGuideImg}
+                    alt="Guia de talles"
+                  />
                 </Typography>
               </AccordionDetails>
             </Accordion>
           </div>
         </section>
       </div>
-      <Carousel></Carousel>
+
+      <div className="col-span-2">
+        <Carousel></Carousel>
+      </div>
     </div>
   );
 }

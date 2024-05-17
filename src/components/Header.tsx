@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../assets/web-negra.png";
 import cartLogo from "../assets/carrito.png";
 
+import Marquee from "react-fast-marquee";
+
 import ShoppingCart from "./ShoppingCart";
 import { DataContext } from "../App";
 
@@ -27,9 +29,11 @@ function Header(props: HeaderProps) {
 
   return (
     <header className="bg-white fixed top-0 left-0 right-0 z-50 shadow-lg">
-      <div className=" header-bar bg-[#004080] text-white p-2 flex justify-center transition-opacity duration-500">
-        <p className="animate-marquee text-xs mx-2">ENVIOS GRATIS EN ROSARIO</p>
-      </div>
+      <Marquee className="bg-[#004080] text-white p-2">
+        <p className="text-xs mx-2">
+          ENVIOS GRATIS A PARTIR DE $50000
+        </p>
+      </Marquee>
       <nav className="mx-auto grid grid-cols-3 p-2">
         <div></div>
         <Link to="/" className="grid-area-2 flex justify-center items-center">

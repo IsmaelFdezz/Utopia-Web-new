@@ -30,18 +30,6 @@ function App() {
 
   const [userData, setUserData] = useState(null);
 
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const userResponse = prompt("Contraseña:");
-    // Aquí comparas la contraseña ingresada con la contraseña requerida
-    if (userResponse === "paloflaco") {
-      setAuthenticated(true);
-    } else {
-      alert("Contraseña incorrecta");
-    }
-  }, []); // El array vacío indica que esta función se ejecutará solo una vez al montar el componente
-
   const addToCart = (productToAdd: ProductToAdd) => {
     setCartItems([...cartItems, productToAdd]);
   };
@@ -58,30 +46,28 @@ function App() {
 
   return (
     <main className="flex flex-col height-screen justify-between h-screen">
-      {authenticated ? (
-        <Router>
-          <ScrollToTopOnNavigate />
-          <DataContext.Provider value={{ cartItems, userData, setUserData }}>
-            <Header handleRemoveProduct={handleRemoveProduct} />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route
-                path="/products/:productId"
-                element={<ProductPage addToCart={addToCart} />}
-              />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/checkout/payment" element={<Finish />} />
-              <Route
-                path="/checkout/order-recieved"
-                element={<OrderRecieved />}
-              />
-              <Route path="/checkout/deliver" element={<Deliver />} />
-            </Routes>
-            <WhatsAppButton></WhatsAppButton>
-            <Footer />
-          </DataContext.Provider>
-        </Router>
-      ) : null}
+      <Router>
+        <ScrollToTopOnNavigate />
+        <DataContext.Provider value={{ cartItems, userData, setUserData }}>
+          <Header handleRemoveProduct={handleRemoveProduct} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/products/:productId"
+              element={<ProductPage addToCart={addToCart} />}
+            />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/payment" element={<Finish />} />
+            <Route
+              path="/checkout/order-recieved"
+              element={<OrderRecieved />}
+            />
+            <Route path="/checkout/deliver" element={<Deliver />} />
+          </Routes>
+          <WhatsAppButton></WhatsAppButton>
+          <Footer />
+        </DataContext.Provider>
+      </Router>
     </main>
   );
 }
