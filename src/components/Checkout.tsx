@@ -241,7 +241,7 @@ function Checkout() {
         type="submit"
         value="Enviar"
       >
-        Seleccionar medio de pago
+        Seleccionar metoo de envío
       </button>
     </form>
   );

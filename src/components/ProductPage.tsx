@@ -13,12 +13,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Images
 import shirtImage from "../assets/white-shirt-floor-4-3.jpg";
 import shirtImage2 from "../assets/foto web remera.jpeg";
+import shirtImage3 from "../assets/t-shirt-3.jpg";
 
 import greyHoodieImage from "../assets/hoodie-grey.jpg";
 import greyHoodieImage2 from "../assets/foto buzo girs.jpeg";
+import greyHoodieImage3 from "../assets/grey-hoodie-3.jpg";
 
 import whiteHoodieImage from "../assets/hoodie-white.jpg";
 import whiteHoodieImage2 from "../assets/fotos web buzo blanco.jpeg";
+import whiteHoodieImage3 from "../assets/white-hoodie-3.jpg";
 
 import talles1 from "../assets/talles-1.jpg";
 import talles2 from "../assets/talles-2.jpg";
@@ -58,18 +61,22 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   // Imagen
   let productImage: string;
   let productImage2: string;
+  let productImage3: string;
 
   if (product.id === "1") {
     productImage = shirtImage;
     productImage2 = shirtImage2;
+    productImage3 = shirtImage3;
     sizeGuideImg = talles1;
   } else if (product.id === "2") {
     productImage = greyHoodieImage;
     productImage2 = greyHoodieImage2;
+    productImage3 = greyHoodieImage3;
     sizeGuideImg = talles2;
   } else {
     productImage = whiteHoodieImage;
     productImage2 = whiteHoodieImage2;
+    productImage3 = whiteHoodieImage3;
     sizeGuideImg = talles2;
   }
 
@@ -100,7 +107,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           onClick={() => setSelectedImage(productImage)}
           className={`${
             selectedImage === productImage ? "opacity-70" : ""
-          } hover:opacity-70 max-w-[180px] cursor-pointer`}
+          } hover:opacity-70 max-w-[150px] cursor-pointer`}
           src={productImage}
           alt={product.name}
         />
@@ -108,8 +115,16 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           onClick={() => setSelectedImage(productImage2)}
           className={`${
             selectedImage === productImage2 ? "opacity-70" : ""
-          } hover:opacity-70 max-w-[180px] cursor-pointer`}
+          } hover:opacity-70 max-w-[150px] cursor-pointer`}
           src={productImage2}
+          alt={product.name}
+        />
+        <img
+          onClick={() => setSelectedImage(productImage3)}
+          className={`${
+            selectedImage === productImage3 ? "opacity-70" : ""
+          } hover:opacity-70 max-w-[150px] cursor-pointer`}
+          src={productImage3}
           alt={product.name}
         />
       </div>
@@ -124,17 +139,24 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
             <div className="embla__slide max-w-[600px]">
               <img src={productImage2} alt={product.name} />
             </div>
+            <div className="embla__slide max-w-[600px]">
+              <img src={productImage3} alt={product.name} />
+            </div>
           </div>
         </div>
 
         {/* Images in desk */}
-        <div className="hidden lg:flex w-[1000px]">
+        <div className="hidden lg:flex w-fit h-fit">
           {selectedImage === productImage && (
             <img src={productImage} alt={product.name} />
           )}
 
           {selectedImage === productImage2 && (
             <img src={productImage2} alt={product.name} />
+          )}
+
+          {selectedImage === productImage3 && (
+            <img src={productImage3} alt={product.name} />
           )}
         </div>
 
@@ -204,7 +226,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                <Typography>Guia de talles</Typography>
+                <Typography>Guía de talles</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography className="flex justify-center">
