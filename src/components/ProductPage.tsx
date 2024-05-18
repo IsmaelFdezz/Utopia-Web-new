@@ -107,7 +107,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           onClick={() => setSelectedImage(productImage)}
           className={`${
             selectedImage === productImage ? "opacity-70" : ""
-          } hover:opacity-70 max-w-[150px] cursor-pointer`}
+          } hover:opacity-70 max-w-[150px] cursor-pointer transition-opacity duration-500 ease-in-out`}
           src={productImage}
           alt={product.name}
         />
@@ -115,7 +115,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           onClick={() => setSelectedImage(productImage2)}
           className={`${
             selectedImage === productImage2 ? "opacity-70" : ""
-          } hover:opacity-70 max-w-[150px] cursor-pointer`}
+          } hover:opacity-70 max-w-[150px] cursor-pointer transition-opacity duration-500 ease-in-out`}
           src={productImage2}
           alt={product.name}
         />
@@ -123,7 +123,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
           onClick={() => setSelectedImage(productImage3)}
           className={`${
             selectedImage === productImage3 ? "opacity-70" : ""
-          } hover:opacity-70 max-w-[150px] cursor-pointer`}
+          } hover:opacity-70 max-w-[150px] cursor-pointer transition-opacity duration-500 ease-in-out`}
           src={productImage3}
           alt={product.name}
         />
@@ -196,7 +196,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
 
             <button
               onClick={handleAddToCart}
-              className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"
+              className="bg-[#004080] rounded-sm transition-all duration-400 hover:bg-[#005780] w-full h-[42px] text-white text-lg"
             >
               Añadir al carrito
             </button>

@@ -16,66 +16,35 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function Carousel() {
-  const [emblaRef] = useEmblaCarousel({ loop: true });
-
   return (
     <div className="flex flex-col gap-[21px] items-center justify-center mt-6">
       <h1 className="text-2 xl mx-6">DESTACADOS</h1>
-      {/* <div className="embla m-6 lg:w-[500px] lg:hidden" ref={emblaRef}>
-        
-        <div className="embla__container">
-          <div className="embla__slide ">
-            <Link to={"/products/1"} className="relative">
-              <img src={shirtImage} alt="absolute Boxy t-shirt #1" />
-              <div className="absolute bg-white top-2 right-2 h-6 w-[54px] font-bold text-xs flex items-center justify-center">
-                NEW IN
-              </div>
-            </Link>
-          </div>
-          <div className="embla__slide">
-            <Link to={"/products/2"} className="relative">
-              <img src={greyHoodie} alt="Boxy Hoodie" />
-              <div className="absolute bg-white top-2 right-2 h-6 w-[54px] font-bold text-xs flex items-center justify-center">
-                NEW IN
-              </div>
-            </Link>
-          </div>
-          <div className="embla__slide">
-            <Link to={"/products/3"} className="relative">
-              <img src={whiteHoodie} alt="Boxy Hoodie" />
-              <div className="absolute bg-white top-2 right-2 h-6 w-[54px] font-bold text-xs flex items-center justify-center">
-                NEW IN
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div> */}
 
       <div className="flex items-center flex-col gap-[16px] mt-4 mb-8">
         <div className="hm-6 flex flex-col lg:flex-row gap-[32px] justify-center">
-          <Link to={"/products/1"} className="group relative">
+        <Link to="/products/2" className="group relative w-[300px] h-[300px]">
             <img
-              className="w-[300px] group-hover:hidden"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
               src={shirtImage}
-              alt="Boxy t-shirt #1"
+              alt="Boxy Hoodie"
             />
             <img
-              className="w-[300px] hidden group-hover:block"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
               src={shirtImage2}
-              alt="Boxy t-shirt #1"
+              alt="Boxy Hoodie"
             />
             <div className="absolute bg-white top-2 right-2 h-6 w-[54px] font-bold text-xs flex items-center justify-center">
               NEW IN
             </div>
           </Link>
-          <Link to={"/products/2"} className="group relative">
+          <Link to="/products/2" className="group relative w-[300px] h-[300px]">
             <img
-              className="w-[300px] group-hover:hidden"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
               src={greyHoodie}
               alt="Boxy Hoodie"
             />
             <img
-              className="w-[300px] hidden group-hover:block"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
               src={greyHoodieImage2}
               alt="Boxy Hoodie"
             />
@@ -83,14 +52,14 @@ function Carousel() {
               NEW IN
             </div>
           </Link>
-          <Link to={"/products/3"} className="group relative">
+          <Link to="/products/3" className="group relative w-[300px] h-[300px]">
             <img
-              className="w-[300px] group-hover:hidden"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
               src={whiteHoodie}
               alt="Boxy Hoodie"
             />
             <img
-              className="w-[300px] hidden group-hover:block"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
               src={whiteHoodieImage2}
               alt="Boxy Hoodie"
             />
