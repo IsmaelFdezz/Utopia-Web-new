@@ -31,7 +31,7 @@ function Header(props: HeaderProps) {
     <header className="bg-white fixed top-0 left-0 right-0 z-50 shadow-lg">
       <Marquee className="bg-[#004080] text-white p-2">
         <p className="text-xs mx-2">
-          ENVIOS GRATIS A PARTIR DE $50000
+          ENVÍO GRATIS A PARTIR DE $50.000
         </p>
       </Marquee>
       <nav className="mx-auto grid grid-cols-3 p-2">
