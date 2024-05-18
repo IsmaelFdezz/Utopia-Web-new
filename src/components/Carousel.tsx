@@ -22,7 +22,7 @@ function Carousel() {
 
       <div className="flex items-center flex-col gap-[16px] mt-4 mb-8">
         <div className="hm-6 flex flex-col lg:flex-row gap-[32px] justify-center">
-        <Link to="/products/2" className="group relative w-[300px] h-[300px]">
+        <Link to="/products/1" className="group relative w-[300px] h-[300px]">
             <img
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
               src={shirtImage}

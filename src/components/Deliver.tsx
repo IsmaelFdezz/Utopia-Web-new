@@ -13,9 +13,13 @@ import { useNavigate } from "react-router-dom";
 export function Deliver() {
   const [loading, setLoading] = useState(false);
 
-  const { userData, setUserData } = useContext(DataContext);
+  const { userData, setUserData, cartItems } = useContext(DataContext);
 
-  const [deliverMethod, setDeliverMethod] = useState(null)
+  const [deliverMethod, setDeliverMethod] = useState(null);
+
+  const productTotal = cartItems.reduce((total: number, item: any) => {
+    return total + item.product.price * item.quantity;
+  }, 0);
 
   const navigate = useNavigate();
 
@@ -26,7 +30,9 @@ export function Deliver() {
       const localUserData = { ...userData, deliverMethod: deliverMethod };
       setUserData(localUserData);
       console.log(localUserData);
-      navigate("/checkout/payment");
+      navigate("/checkout/payment", {
+        state: { productTotal: productTotal },
+      });
     }
   }, [deliverMethod, navigate, setUserData, userData]);
 
@@ -48,8 +54,16 @@ export function Deliver() {
         <AccordionDetails>
           <Typography>
             <div>
-              <p className="font-bold mb-2">Cadeteria de confianza. Dentro de las 24hs hábiles</p>
-              <p className="text-xl mb-4">$1800</p>
+              <p className="font-bold mb-2">
+                Cadeteria de confianza. Dentro de las 24hs hábiles
+              </p>
+
+              {productTotal >= 50000 ? (
+                <p className="text-xl mb-4">Gratis!</p>
+              ) : (
+                <p className="text-xl mb-4">$1800</p>
+              )}
+
               <button
                 onClick={() => handleButton("delivery")}
                 className="bg-[#004080] rounded-sm hover:bg-[#005780] w-full h-[42px] text-white text-lg"

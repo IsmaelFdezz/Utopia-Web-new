@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import axios from "axios";
@@ -23,6 +23,10 @@ function Payment() {
 
   const [loading, setLoading] = useState(false);
 
+  const location = useLocation();
+
+  const productTotal = location.state.productTotal;
+
   const [paymentMethod, setPaymentMethod] = useState(null);
 
   const [preferenceId, setPreferenceId] = useState(null);
@@ -31,15 +35,14 @@ function Payment() {
 
   // Calcular el total
   const calculateTotal = () => {
-    if (userData.deliverMethod === "delivery") {
-      return cartItems.reduce((total: number, item: any) => {
-        return total + item.product.price * item.quantity;
-      }, 0) + 1800; // Sumar el costo de envío al total
+
+    // Si el método de entrega es "delivery" y el total es menor a 50000, agregar 1800
+    if (userData.deliverMethod === "delivery" && productTotal < 50000) {
+      return productTotal + 1800;
     }
-    
-    return cartItems.reduce((total: number, item: any) => {
-      return total + item.product.price * item.quantity;
-    }, 0);
+
+    // En cualquier otro caso, devolver solo el total de los productos
+    return productTotal;
   };
 
   // Generar numero de pedido
@@ -52,14 +55,14 @@ function Payment() {
     const localUserData = { ...userData, paymentMethod: method };
     setUserData(localUserData);
 
-    if (method  === "deposit") {
+    if (method === "deposit") {
       sendEmail();
-      setLoading(false)
+      setLoading(false);
       navigate("/checkout/order-recieved", {
-        state: { orderNumber: orderNumber, total: calculateTotal()}
+        state: { orderNumber: orderNumber, total: calculateTotal() },
       });
-    } else if (method  === "mercadopago") {
-      setLoading(false)
+    } else if (method === "mercadopago") {
+      setLoading(false);
       await handleMp();
     }
   };
@@ -159,16 +162,18 @@ function Payment() {
                 <div className="flex gap-1 ">
                   <p className="text-l">Envio:</p>
                   <p className="mb-4 text-l">
-                    $1800.00
+                    {calculateTotal() >= 50000 ? (
+                      <span>Gratis!</span>
+                    ) : (
+                      <span>$1800</span>
+                    )}
                   </p>
                 </div>
               )}
               {userData.deliverMethod === "pickup" && (
                 <div className="flex gap-1 ">
                   <p className="text-l">Retiro Pick Up:</p>
-                  <p className="mb-4 text-l">
-                    España 961, 1-4
-                  </p>
+                  <p className="mb-4 text-l">España 961, 1-4</p>
                 </div>
               )}
               <p className="text-xl">Total:</p>
@@ -219,20 +224,22 @@ function Payment() {
                   <span>Cantidad: {item.quantity}</span>
                 </p>
               ))}
-               {userData.deliverMethod === "delivery" && (
+              {userData.deliverMethod === "delivery" && (
                 <div className="flex gap-1 ">
                   <p className="text-l">Envio:</p>
                   <p className="mb-4 text-l">
-                    $1800.00
+                    {calculateTotal() >= 50000 ? (
+                      <span>Gratis!</span>
+                    ) : (
+                      <span>$1800</span>
+                    )}
                   </p>
                 </div>
               )}
               {userData.deliverMethod === "pickup" && (
                 <div className="flex gap-1 ">
                   <p className="text-l">Retiro Pick Up:</p>
-                  <p className="mb-4 text-l">
-                    España 961, 1-4
-                  </p>
+                  <p className="mb-4 text-l">España 961, 1-4</p>
                 </div>
               )}
               <p className="text-xl">Total:</p>

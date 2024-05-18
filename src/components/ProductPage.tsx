@@ -101,7 +101,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
   const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
-    <div className="flex flex-col lg:mx-[32px] lg:grid lg:grid-cols-[auto, auto] gap-y-[32px] gap-x-[32px] mt-[94px] py-[8px]">
+    <div className="flex flex-col lg:mx-[32px] lg:grid lg:grid-cols-[250px_auto] gap-y-[32px] gap-x-[32px] mt-[94px] py-[8px]">
       <div className="hidden lg:flex flex-col items-center gap-8">
         <img
           onClick={() => setSelectedImage(productImage)}
@@ -146,7 +146,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
         </div>
 
         {/* Images in desk */}
-        <div className="hidden lg:flex w-fit h-fit">
+        <div className="hidden lg:flex w-fit h-fit max-w-[600px]">
           {selectedImage === productImage && (
             <img src={productImage} alt={product.name} />
           )}
