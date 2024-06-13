@@ -30,6 +30,15 @@ function ShoppingCart(props: ShoppingCartProps) {
     onClose();
   };
 
+  const formatCurrency = (number) => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0, // Para evitar decimales
+      maximumFractionDigits: 0, // Para evitar decimales
+    }).format(number);
+  };
+
   return (
     <div
       className="relative z-10"
@@ -99,8 +108,8 @@ function ShoppingCart(props: ShoppingCartProps) {
                                   </h3>
                                   <p className="ml-4">
                                     {item.product.salePrice
-                                      ? item.product.salePrice.toFixed(2)
-                                      : item.product.price.toFixed(2)}
+                                      ? formatCurrency(item.product.salePrice)
+                                      : formatCurrency(item.product.price)}
                                   </p>
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
@@ -131,7 +140,7 @@ function ShoppingCart(props: ShoppingCartProps) {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Total</p>
-                    <p>${calculateTotal().toFixed(2)}</p>
+                    <p>{formatCurrency(calculateTotal())}</p>
                   </div>
                   <div className="mt-6 flex align-center justify-center">
                     <button

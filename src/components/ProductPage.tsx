@@ -98,6 +98,15 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
     addToCart(productToAdd);
   };
 
+  const formatCurrency = (number) => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0, // Para evitar decimales
+      maximumFractionDigits: 0, // Para evitar decimales
+    }).format(number);
+  };
+
   const [emblaRef] = useEmblaCarousel({ loop: true });
 
   return (
@@ -161,18 +170,18 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
         </div>
 
         <section className="w-full px-[8px] flex flex-col gap-[24px]">
-          {product.salePrice ? 
+          {product.salePrice ? (
             <div>
               <h1 className="text-2xl">{product.name}</h1>
-              <del className="text-l mt-2">${product.price}</del>
-              <p className="text-2xl">${product.salePrice}</p>
-            </div> : 
+              <del className="text-l mt-2">{formatCurrency(product.price)}</del>
+              <p className="text-2xl">{formatCurrency(product.salePrice)}</p>
+            </div>
+          ) : (
             <div>
-            <h1 className="text-2xl">{product.name}</h1>
-            <p className="text-2xl mt-2">${product.price}</p>
-          </div>
-          }
-          
+              <h1 className="text-2xl">{product.name}</h1>
+              <p className="text-2xl mt-2">{formatCurrency(product.price)}</p>
+            </div>
+          )}
 
           <div className="flex flex-col gap-[8px]">
             <p className="text-l">Talle</p>

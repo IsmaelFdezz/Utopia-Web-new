@@ -122,6 +122,13 @@ function Payment() {
     }
   };
 
+  const formatCurrency = (number) => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    }).format(number);
+  };
+
   return (
     <div className="flex flex-col gap-[32px] align-center mt-[94px] p-[32px]">
       <h1 className="text-xl font-bold">Seleccionar medio de pago</h1>
@@ -151,10 +158,12 @@ function Payment() {
                   <span>{item.product.name}</span>
                   <br />
                   <span>
-                    Precio: $
-                    {item.product.salePrice
-                      ? item.product.salePrice
-                      : item.product.price}
+                    Precio:
+                    <span className="ml-1">
+                      {item.product.salePrice
+                        ? formatCurrency(item.product.salePrice)
+                        : formatCurrency(item.product.price)}
+                    </span>
                   </span>
                   <br />
                   <span>Talle: {item.size}</span>
@@ -185,7 +194,7 @@ function Payment() {
               )}
               <p className="text-xl">Total:</p>
               <p className="font-bold mb-4 text-xl">
-                ${calculateTotal().toFixed(2)}
+                {formatCurrency(calculateTotal())}
               </p>
               <button
                 onClick={() => handleButton("deposit")}
@@ -225,10 +234,12 @@ function Payment() {
                   <span>{item.product.name}</span>
                   <br />
                   <span>
-                    Precio: $
-                    {item.product.salePrice
-                      ? item.product.salePrice
-                      : item.product.price}
+                    Precio:
+                    <span className="ml-1">
+                      {item.product.salePrice
+                        ? formatCurrency(item.product.salePrice)
+                        : formatCurrency(item.product.price)}
+                    </span>
                   </span>
                   <br />
                   <span>Talle: {item.size}</span>
@@ -259,7 +270,7 @@ function Payment() {
               )}
               <p className="text-xl">Total:</p>
               <p className="font-bold mb-4 text-xl">
-                ${calculateTotal().toFixed(2)}
+                {formatCurrency(calculateTotal())}
               </p>
               <button
                 onClick={() => handleButton("mercadopago")}

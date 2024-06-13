@@ -52,7 +52,7 @@ function Checkout() {
       ${cartItems
         .map(
           (item) =>
-            `${item.product.name}, Precio: ${item.product.price}, Cantidad: ${item.quantity}, Talle: ${item.size}`
+            `${item.product.name}, Precio: ${item.product.salePrice ? item.product.salePrice : item.product.price}, Cantidad: ${item.quantity}, Talle: ${item.size}`
         )
         .join("\n")}
     `;
