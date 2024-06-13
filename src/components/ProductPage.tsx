@@ -174,7 +174,7 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
             <div>
               <h1 className="text-2xl">{product.name}</h1>
               <del className="text-l mt-2">{formatCurrency(product.price)}</del>
-              <p className="text-2xl">{formatCurrency(product.salePrice)}</p>
+              <p className="text-2xl flex gap-2">{formatCurrency(product.salePrice)} <div className="bg-red-700 flex"><span className="text-white flex p-1 items-center justify-center text-sm">15% OFF</span></div></p>
             </div>
           ) : (
             <div>
