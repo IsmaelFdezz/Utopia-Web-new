@@ -161,10 +161,18 @@ function ProductPage({ addToCart }: { addToCart: AddToCartFunction }) {
         </div>
 
         <section className="w-full px-[8px] flex flex-col gap-[24px]">
-          <div>
+          {product.salePrice ? 
+            <div>
+              <h1 className="text-2xl">{product.name}</h1>
+              <del className="text-l mt-2">${product.price}</del>
+              <p className="text-2xl">${product.salePrice}</p>
+            </div> : 
+            <div>
             <h1 className="text-2xl">{product.name}</h1>
             <p className="text-2xl mt-2">${product.price}</p>
           </div>
+          }
+          
 
           <div className="flex flex-col gap-[8px]">
             <p className="text-l">Talle</p>

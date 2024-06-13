@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
 interface ShoppingCartProps {
@@ -9,12 +9,16 @@ interface ShoppingCartProps {
 function ShoppingCart(props: ShoppingCartProps) {
   const { onClose, handleRemoveProduct } = props;
 
-  const { cartItems  } = useContext(DataContext)
+  const { cartItems } = useContext(DataContext);
 
   // Calcular el total
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
+      if (item.product.salePrice) {
+        return total + item.product.salePrice * item.quantity;
+      } else {
+        return total + item.product.price * item.quantity;
+      }
     }, 0);
   };
 
@@ -23,7 +27,7 @@ function ShoppingCart(props: ShoppingCartProps) {
 
   const handleCheckoutClick = () => {
     navigate("/checkout");
-    onClose()
+    onClose();
   };
 
   return (
@@ -94,7 +98,9 @@ function ShoppingCart(props: ShoppingCartProps) {
                                     <a href="/">{item.product.name}</a>
                                   </h3>
                                   <p className="ml-4">
-                                    ${item.product.price.toFixed(2)}
+                                    {item.product.salePrice
+                                      ? item.product.salePrice.toFixed(2)
+                                      : item.product.price.toFixed(2)}
                                   </p>
                                 </div>
                                 <p className="mt-1 text-sm text-gray-500">
@@ -128,7 +134,11 @@ function ShoppingCart(props: ShoppingCartProps) {
                     <p>${calculateTotal().toFixed(2)}</p>
                   </div>
                   <div className="mt-6 flex align-center justify-center">
-                    <button disabled={cartItems.length === 0} onClick={handleCheckoutClick} className="w-full flex items-center justify-center rounded-md border border-transparent bg-[#004080] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#005780]">
+                    <button
+                      disabled={cartItems.length === 0}
+                      onClick={handleCheckoutClick}
+                      className="w-full flex items-center justify-center rounded-md border border-transparent bg-[#004080] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#005780]"
+                    >
                       Finalizar compra
                     </button>
                   </div>

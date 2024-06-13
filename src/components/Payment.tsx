@@ -35,11 +35,10 @@ function Payment() {
 
   // Calcular el total
   const calculateTotal = () => {
-
     // Si el método de entrega es "delivery" y el total es menor a 50000, agregar 1800
-    if (userData.deliverMethod === "delivery" && productTotal < 50000) {
-      return productTotal + 1800;
-    }
+    // if (userData.deliverMethod === "delivery" && productTotal < 50000) {
+    //   return productTotal + 1800;
+    // }
 
     // En cualquier otro caso, devolver solo el total de los productos
     return productTotal;
@@ -151,7 +150,12 @@ function Payment() {
                 <p className="mb-4">
                   <span>{item.product.name}</span>
                   <br />
-                  <span>Precio: ${item.product.price}</span>
+                  <span>
+                    Precio: $
+                    {item.product.salePrice
+                      ? item.product.salePrice
+                      : item.product.price}
+                  </span>
                   <br />
                   <span>Talle: {item.size}</span>
                   <br />
@@ -161,12 +165,15 @@ function Payment() {
               {userData.deliverMethod === "delivery" && (
                 <div className="flex gap-1 ">
                   <p className="text-l">Envio:</p>
-                  <p className="mb-4 text-l">
+                  {/* <p className="mb-4 text-l">
                     {calculateTotal() >= 50000 ? (
                       <span>Gratis!</span>
                     ) : (
                       <span>$1800</span>
                     )}
+                  </p> */}
+                  <p className="mb-4 text-l">
+                    <span>Gratis!</span>
                   </p>
                 </div>
               )}
@@ -217,7 +224,12 @@ function Payment() {
                 <p className="mb-4">
                   <span>{item.product.name}</span>
                   <br />
-                  <span>Precio: ${item.product.price}</span>
+                  <span>
+                    Precio: $
+                    {item.product.salePrice
+                      ? item.product.salePrice
+                      : item.product.price}
+                  </span>
                   <br />
                   <span>Talle: {item.size}</span>
                   <br />
@@ -227,12 +239,15 @@ function Payment() {
               {userData.deliverMethod === "delivery" && (
                 <div className="flex gap-1 ">
                   <p className="text-l">Envio:</p>
-                  <p className="mb-4 text-l">
+                  {/* <p className="mb-4 text-l">
                     {calculateTotal() >= 50000 ? (
                       <span>Gratis!</span>
                     ) : (
                       <span>$1800</span>
                     )}
+                  </p> */}
+                  <p className="mb-4 text-l">
+                    <span>Gratis!</span>
                   </p>
                 </div>
               )}

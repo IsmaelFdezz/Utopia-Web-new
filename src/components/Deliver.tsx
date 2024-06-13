@@ -18,7 +18,11 @@ export function Deliver() {
   const [deliverMethod, setDeliverMethod] = useState(null);
 
   const productTotal = cartItems.reduce((total: number, item: any) => {
-    return total + item.product.price * item.quantity;
+    if (item.product.salePrice) {
+      return total + item.product.salePrice * item.quantity;
+    } else {
+      return total + item.product.price * item.quantity;
+    }
   }, 0);
 
   const navigate = useNavigate();
@@ -58,11 +62,12 @@ export function Deliver() {
                 Cadeteria de confianza. Dentro de las 24hs hábiles
               </p>
 
-              {productTotal >= 50000 ? (
+              {/* {productTotal >= 50000 ? (
                 <p className="text-xl mb-4">Gratis!</p>
               ) : (
                 <p className="text-xl mb-4">$1800</p>
-              )}
+              )} */}
+              <p className="text-xl mb-4">Gratis!</p>
 
               <button
                 onClick={() => handleButton("delivery")}
