@@ -34,8 +34,6 @@ function ShoppingCart(props: ShoppingCartProps) {
     return new Intl.NumberFormat("es-AR", {
       style: "currency",
       currency: "ARS",
-      minimumFractionDigits: 0, // Para evitar decimales
-      maximumFractionDigits: 0, // Para evitar decimales
     }).format(number);
   };
 
